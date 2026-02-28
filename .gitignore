@@ -1,0 +1,40 @@
+# Sistema / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.log
+*.iml
+.idea/
+
+# VS Code (descomenta si no quieres versionarlo)
+# .vscode/
+
+# Flutter / Dart (aplica a todos los subproyectos)
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+**/.pub/
+**/build/
+**/coverage/
+**/doc/api/
+
+# Android / Gradle
+**/android/.gradle/
+**/android/local.properties
+**/android/**/debug/
+**/android/**/profile/
+**/android/**/release/
+
+# iOS / macOS generados
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/macos/Flutter/ephemeral/
+
+# Símbolos / mapas de ofuscación
+**/app.*.symbols
+**/app.*.map.json

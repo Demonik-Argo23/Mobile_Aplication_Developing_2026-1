@@ -20,7 +20,7 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Odio a los negros"),
+        title: Text("Formulario de Registro", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.pinkAccent,
         foregroundColor: Colors.white,
       ),

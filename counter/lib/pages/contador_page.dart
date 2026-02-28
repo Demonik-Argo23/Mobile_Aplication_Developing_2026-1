@@ -72,18 +72,6 @@ class _ContadorPageState extends State<ContadorPage> {
           )
         ],
       ),
-
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {});
-          _counter++;
-          print(_counter);
-        },
-        backgroundColor: Color.fromARGB(255, 122, 7, 253),
-        shape: CircleBorder(),
-        child: Icon(Icons.add, color: Colors.white, size: 30,),
-        ),
-      */
         
     );
   }
