@@ -10,11 +10,43 @@ class FormPage extends StatefulWidget {
 
 class _FormPageState extends State<FormPage> {
 
+  final TextEditingController fechaController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
   final formkey = GlobalKey<FormState>();
   String nombre = '';
   double telefono = 0;
   final List<String> departamentos = ['Recursos Humanos', 'Finanzas', 'Ventas', 'Marketing', 'IT'];
   String departamento = '';
+
+  selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2030),
+      builder: (context, child){
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: Colors.pinkAccent,
+              onPrimary: Colors.white,
+              surface: const Color.fromARGB(255, 255, 255, 255),
+              onSurface: Colors.black,
+            ),
+          ), 
+          child: child!
+        );
+      }
+    );
+    if (selected != null) {
+      setState(() {
+        selectedDate = selected;
+        fechaController.text = "${selected.day}/${selected.month}/${selected.year}";
+      });
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +116,19 @@ class _FormPageState extends State<FormPage> {
                   setState(() {
                     departamento = value!;
                   });
+                },
+              ),
+              SizedBox(height: 20,),
+              TextFormField(
+                controller: fechaController,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: "Fecha de nacimiento",
+                  prefixIcon: Icon(Icons.calendar_month),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+                onTap: () {
+                  selectDate(context);
                 },
               ),
               SizedBox(height: 60,),
