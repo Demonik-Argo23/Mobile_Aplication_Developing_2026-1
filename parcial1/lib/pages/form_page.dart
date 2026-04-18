@@ -143,7 +143,7 @@ class _FormPageState extends State<FormPage> {
                   controller: fechaController,
                   readOnly: true,
                   decoration: InputDecoration(
-                    labelText: "",
+                    labelText: "Comprar antes de:",
                     fillColor: Colors.indigo.shade100,
                     filled: true,
                     prefixIcon: Icon(Icons.calendar_month),
