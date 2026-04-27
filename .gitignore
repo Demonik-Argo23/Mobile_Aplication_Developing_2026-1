@@ -45,3 +45,68 @@ Thumbs.db
 # Símbolos / mapas de ofuscación
 **/app.*.symbols
 **/app.*.map.json
+
+# Generated files by build_runner, freezed, etc
+**/*.g.dart
+**/*.freezed.dart
+**/*.config.dart
+**/*.gr.dart
+**/*.chopper.dart
+**/*.firebase_messaging.g.dart
+
+# Dependency lock files (descomenta si necesitas versionarlos)
+# pubspec.lock
+
+# Web build artifacts
+**/web/canvaskit/
+**/web/dart_service_worker.js
+
+# Package files
+**/packages/
+**/.packages
+
+# Generated environment files
+**/.env
+**/.env.local
+
+# Test coverage
+**/coverage/
+**/.nyc_output/
+
+# IDE specific files
+**/.classpath
+**/.project
+**/.settings/
+**/.vscode/settings.json
+**/.vscode/launch.json
+**/.vscode/extensions.json
+*.code-workspace
+.c9/
+
+# JetBrains IDEs
+**/.idea/
+**/cmake-build-*/
+**/*.iws
+**/*.ipr
+**/*.iml
+
+# macOS
+**/.DS_Store
+**/.AppleDouble
+**/.LSOverride
+**/*.dSYM/
+
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/*.lnk
+**/.vs/
+
+# Linux
+**/._*
+
+# Misc
+**/*.orig
+**/TODO.md
+**/*.TODO
+**/.env.*.local
