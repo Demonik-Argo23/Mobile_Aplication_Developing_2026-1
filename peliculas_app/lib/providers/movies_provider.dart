@@ -18,7 +18,7 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<void> getOnDisplayMovies() async{
-    var url = Uri.https(_baseUrl, '3/movie/now_playing', {'api_key': _apiKey, 'language': _language, 'page':1});
+    var url = Uri.https(_baseUrl, '3/movie/now_playing', {'api_key': _apiKey, 'language': _language, 'page':"1"});
     final response = await http.get(url);
     final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
     print(nowPlayingResponse.results[1]);
