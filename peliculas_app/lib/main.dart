@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'home_page',
       theme: ThemeData.light().copyWith(
         appBarTheme: AppBarTheme(backgroundColor: Colors.indigo),
+        
       ),
     );
   }

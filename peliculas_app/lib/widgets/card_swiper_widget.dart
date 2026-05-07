@@ -15,7 +15,7 @@ class CardSwiperWidget extends StatelessWidget {
       color: Colors.indigo.shade100,
       child: Swiper(
         layout: SwiperLayout.TINDER,
-        itemCount: 3,
+        itemCount: movies.length,
         itemWidth: size.width * 0.6,
         itemHeight: size.height * 0.4,
 

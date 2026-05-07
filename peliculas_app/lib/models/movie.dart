@@ -39,7 +39,7 @@ class Movie {
 
     get fullPosterImg {
       if (this.posterPath != null) {
-        return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+        return 'https://image.tmdb.org/t/p/w500${posterPath}';
       }
       return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7vlxc23whnpsnYqqppUQ0_dMGVfPsde6DHw&s';
     }
