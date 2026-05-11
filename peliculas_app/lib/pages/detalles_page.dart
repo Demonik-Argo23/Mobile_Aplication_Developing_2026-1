@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_app/models/movie.dart';
 import 'package:peliculas_app/widgets/casting_card_widget.dart';
 
 class DetallesPage extends StatelessWidget {
@@ -6,6 +7,8 @@ class DetallesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final movie = ModalRoute.of(context)!.settings.arguments as Movie;
+
     return Scaffold(
       //scroll pero este cuenta con mas personalizacion
       body: CustomScrollView(
@@ -23,7 +26,7 @@ class DetallesPage extends StatelessWidget {
                 width: double.infinity,
                 color: Colors.indigoAccent,
                 child: Text(
-                  "Detalles de la pelicula",
+                  movie.title,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -33,9 +36,7 @@ class DetallesPage extends StatelessWidget {
               ),
               background: FadeInImage(
                 placeholder: AssetImage('NoImage.png'),
-                image: NetworkImage(
-                  'https://wallpapers.com/images/featured/dragon-ball-z-3izrb2kvqsbl3tun.jpg',
-                ),
+                image: NetworkImage(movie.fullPosterImg),
                 fit: BoxFit.contain,
               ),
             ),
@@ -43,13 +44,10 @@ class DetallesPage extends StatelessWidget {
 
           SliverList(
             delegate: SliverChildListDelegate([
-              PosterYTitulo(), 
-              Sinopsis(),
-              Sinopsis(),
-              Sinopsis(),
-              Sinopsis(),
-              CastingCardWidget()
-              ]),
+              PosterYTitulo(movie: movie),
+              Sinopsis(movie: movie),
+              CastingCardWidget(),
+            ]),
           ),
         ],
       ),
@@ -58,7 +56,8 @@ class DetallesPage extends StatelessWidget {
 }
 
 class PosterYTitulo extends StatelessWidget {
-  const PosterYTitulo({super.key});
+  final Movie movie;
+  const PosterYTitulo({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +69,7 @@ class PosterYTitulo extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
               placeholder: AssetImage('NoImage.png'),
-              image: NetworkImage(
-                'https://m.media-amazon.com/images/I/51jlGwFKXVL._AC_UF894,1000_QL80_.jpg',
-              ),
+              image: NetworkImage(movie.fullPosterImg),
               width: 150,
               height: 200,
               fit: BoxFit.cover,
@@ -81,21 +78,20 @@ class PosterYTitulo extends StatelessWidget {
           SizedBox(width: 20),
           Column(
             children: [
+              Text(movie.title, overflow: TextOverflow.fade),
               Text(
-                "Nombre de la pelicula",
-                style: Theme.of(context).textTheme.titleLarge,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                "Titulo original de la Pelicula",
+                movie.originalTitle,
                 style: Theme.of(context).textTheme.titleMedium,
-                overflow: TextOverflow.ellipsis,
+                overflow: TextOverflow.fade,
               ),
               Row(
                 children: [
                   Icon(Icons.star_outline, size: 15, color: Colors.grey),
                   SizedBox(width: 5),
-                  Text("8.5", style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    movie.voteAverage.toString(),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
               ),
             ],
@@ -107,18 +103,18 @@ class PosterYTitulo extends StatelessWidget {
 }
 
 class Sinopsis extends StatelessWidget {
-  const Sinopsis({super.key});
+  final Movie movie;
+  const Sinopsis({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Text(
-        '''Enim commodo laborum ex cillum labore quis nostrud duis laborum est ex dolore. 
-        Id adipisicing anim elit irure. Adipisicing ex id voluptate excepteur ex sint quis labore aute. Mollit 
-        enim non sunt aute nostrud. Ad ex anim irure cupidatat Lorem. Sunt enim non consectetur ex minim amet 
-        sit laborum. Sunt velit fugiat officia ea ullamco sit eu amet occaecat.''',
-      textAlign: TextAlign.justify),
+        movie.overview,
+        textAlign: TextAlign.justify,
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

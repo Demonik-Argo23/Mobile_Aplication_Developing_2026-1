@@ -23,7 +23,7 @@ class CardSwiperWidget extends StatelessWidget {
           final movie = movies[index];
           //Convierte a su chavo (child) en un clickeable
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'detalles_page'),
+            onTap: () => Navigator.pushNamed(context, 'detalles_page', arguments: movie),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: FadeInImage(

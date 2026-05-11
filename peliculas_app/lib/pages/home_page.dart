@@ -28,7 +28,15 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(children: [CardSwiperWidget(movies: moviesProvider.OnDisplayMovies,), MovieSliderWidget()]),
+        child: Column(
+          children: [
+            CardSwiperWidget(movies: moviesProvider.OnDisplayMovies),
+            MovieSliderWidget(
+              movies: moviesProvider.PopularMovies,
+              title: 'Populares',
+            ),
+          ],
+        ),
       ),
     );
   }
