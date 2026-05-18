@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:peliculas_app/models/cast.dart';
+import 'package:peliculas_app/models/credits_response.dart';
 import 'package:peliculas_app/models/movie.dart';
 import 'package:peliculas_app/models/movies_popular.dart';
 import 'package:peliculas_app/models/now_playing_response.dart';
@@ -12,6 +14,9 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> OnDisplayMovies = [];
   List<Movie> PopularMovies = [];
+
+  // Caché para no repetir llamadas al casting de la misma película
+  Map<int, List<Cast>> _moviesCast = {};
 
   MoviesProvider(){
     this.getOnDisplayMovies();
@@ -37,5 +42,20 @@ class MoviesProvider extends ChangeNotifier {
     final popularResponse = PopularResponse.fromJson(response.body);
     PopularMovies = popularResponse.results;
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMovieCast(int movieId) async {
+    if (_moviesCast.containsKey(movieId)) return _moviesCast[movieId]!;
+
+    final url = Uri.https(_baseUrl, '3/movie/$movieId/credits', {
+      'api_key': _apiKey,
+      'language': _language,
+    });
+
+    final response = await http.get(url);
+    final creditsResponse = CreditsResponse.fromJson(response.body);
+
+    _moviesCast[movieId] = creditsResponse.cast;
+    return creditsResponse.cast;
   }
 }

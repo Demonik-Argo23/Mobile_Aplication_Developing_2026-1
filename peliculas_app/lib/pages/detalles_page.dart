@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_app/models/movie.dart';
+import 'package:peliculas_app/models/cast.dart';
+import 'package:peliculas_app/providers/movies_provider.dart';
 import 'package:peliculas_app/widgets/casting_card_widget.dart';
+import 'package:provider/provider.dart';
 
 class DetallesPage extends StatelessWidget {
   const DetallesPage({super.key});
@@ -8,6 +11,7 @@ class DetallesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movie = ModalRoute.of(context)!.settings.arguments as Movie;
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
 
     return Scaffold(
       //scroll pero este cuenta con mas personalizacion
@@ -35,7 +39,7 @@ class DetallesPage extends StatelessWidget {
                 ),
               ),
               background: FadeInImage(
-                placeholder: AssetImage('NoImage.png'),
+                placeholder: AssetImage('assets/NoImage.png'),
                 image: NetworkImage(movie.fullPosterImg),
                 fit: BoxFit.contain,
               ),
@@ -46,7 +50,26 @@ class DetallesPage extends StatelessWidget {
             delegate: SliverChildListDelegate([
               PosterYTitulo(movie: movie),
               Sinopsis(movie: movie),
-              CastingCardWidget(),
+              FutureBuilder<List<Cast>>(
+                future: moviesProvider.getMovieCast(movie.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Container(
+                      height: 160,
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Container(
+                      height: 160,
+                      child: Center(child: Text('No hay información del cast')),
+                    );
+                  }
+
+                  return CastingCardWidget(casts: snapshot.data!);
+                },
+              ),
             ]),
           ),
         ],
@@ -68,7 +91,7 @@ class PosterYTitulo extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
-              placeholder: AssetImage('NoImage.png'),
+              placeholder: AssetImage('assets/NoImage.png'),
               image: NetworkImage(movie.fullPosterImg),
               width: 150,
               height: 200,
